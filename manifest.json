@@ -1,0 +1,12 @@
+{
+  "name": "ExamSprint - Daily Quiz",
+  "short_name": "ExamSprint",
+  "description": "Daily banking, LIC and general awareness practice quizzes.",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#f4f7fc",
+  "theme_color": "#123b78",
+  "orientation": "portrait",
+  "icons": []
+}
