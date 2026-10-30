@@ -1,120 +1,72 @@
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <meta name="theme-color" content="#123b78">
-  <meta name="description" content="Daily banking, LIC and general awareness practice quizzes in Hindi and English.">
-  <link rel="manifest" href="manifest.json">
-  <title>ExamSprint – Daily Quiz</title>
-  <style>
-    :root{--navy:#123b78;--blue:#2563eb;--bg:#f4f7fc;--ink:#14213d;--muted:#64748b;--green:#16834a;--line:#e3eaf5;--white:#fff}
-    *{box-sizing:border-box} body{margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;background:var(--bg);color:var(--ink)}
-    button{font:inherit;cursor:pointer} .app{max-width:600px;margin:auto;min-height:100dvh;background:var(--bg);padding-bottom:26px}
-    header{background:linear-gradient(135deg,#123b78,#2563eb);color:white;padding:24px 20px 25px;border-radius:0 0 25px 25px}
-    .top{display:flex;align-items:center;justify-content:space-between;gap:12px}.brand{font-size:21px;font-weight:850;letter-spacing:-.4px}.pill{font-size:12px;background:#ffffff24;border:1px solid #ffffff45;padding:6px 10px;border-radius:20px}
-    h1{font-size:25px;line-height:1.2;margin:23px 0 8px;max-width:380px} header p{margin:0;color:#e2ebff;font-size:14px}
-    .stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:20px}.stat{background:#ffffff18;border:1px solid #ffffff35;border-radius:14px;padding:11px 8px}.stat b{display:block;font-size:19px}.stat span{font-size:11px;color:#e2ebff}
-    main{padding:19px 16px}.section-head{display:flex;justify-content:space-between;align-items:center;margin:3px 2px 12px}.section-head h2{font-size:18px;margin:0}.small{font-size:12px;color:var(--muted)}
-    .categories{display:grid;grid-template-columns:repeat(2,1fr);gap:11px}.category{border:1px solid var(--line);background:white;border-radius:17px;padding:15px;text-align:left;box-shadow:0 3px 12px #183b7010;min-height:115px;color:var(--ink)}.category:active{transform:scale(.98)}.emoji{font-size:25px}.category b{display:block;margin:7px 0 3px;font-size:14px}.category span:last-child{font-size:12px;color:var(--muted)}
-    .card{background:white;border:1px solid var(--line);border-radius:18px;padding:16px;margin-top:17px;box-shadow:0 3px 12px #183b7008}.card h3{margin:0 0 6px;font-size:16px}.card p{margin:0;color:var(--muted);font-size:13px;line-height:1.5}
-    .primary{background:var(--blue);color:white;border:0;border-radius:13px;padding:13px 16px;font-weight:750;width:100%;margin-top:14px}.secondary{background:#edf3ff;color:var(--blue);border:0;border-radius:12px;padding:11px 14px;font-weight:700}
-    .hidden{display:none!important}.question-meta{display:flex;justify-content:space-between;color:var(--muted);font-size:12px;margin-bottom:12px}.progress{height:7px;background:#e8eef8;border-radius:10px;overflow:hidden;margin-bottom:20px}.progress div{height:100%;background:#2563eb;width:0;transition:width .2s}
-    .question{font-size:20px;line-height:1.35;font-weight:800;margin:8px 0 18px}.option{display:block;width:100%;text-align:left;padding:13px 14px;border:1px solid var(--line);background:#fff;border-radius:13px;margin:9px 0;color:var(--ink)}.option.selected{border-color:var(--blue);background:#edf4ff}.option.correct{border-color:#21a366;background:#eaf9f0}.option.wrong{border-color:#e24b4b;background:#fff0f0}.explain{background:#f0f7ff;border-radius:12px;padding:12px;margin-top:12px;font-size:13px;line-height:1.5}
-    .result-score{font-size:42px;font-weight:900;color:var(--blue);margin:12px 0}.footer{text-align:center;color:#94a3b8;font-size:11px;padding:12px 18px}
-    .lang-btn{background:white;color:var(--navy);border:0;border-radius:10px;padding:8px 10px;font-size:12px;font-weight:800}
-  </style>
-</head>
-<body>
-<div class="app">
-  <header>
-    <div class="top"><div class="brand">⚡ ExamSprint</div><button id="langBtn" class="lang-btn">हिन्दी</button></div>
-    <h1 id="heroTitle">Roz thoda padho. Exam mein aage badho.</h1>
-    <p id="heroSub">Banking • LIC • General Awareness</p>
-    <div class="stats">
-      <div class="stat"><b id="totalScore">0</b><span id="stat1">Correct answers</span></div>
-      <div class="stat"><b id="testsDone">0</b><span id="stat2">Quizzes completed</span></div>
-      <div class="stat"><b id="streak">0 🔥</b><span id="stat3">Day streak</span></div>
-    </div>
-  </header>
-  <main>
-    <section id="home">
-      <div class="section-head"><h2 id="chooseTitle">Choose your practice</h2><span class="small" id="dailyLabel">Daily practice</span></div>
-      <div class="categories">
-        <button class="category" data-cat="banking"><span class="emoji">🏦</span><b id="bankTitle">Banking Basics</b><span id="bankSub">RBI, banks & finance</span></button>
-        <button class="category" data-cat="lic"><span class="emoji">🛡️</span><b id="licTitle">LIC & Insurance</b><span id="licSub">Insurance fundamentals</span></button>
-        <button class="category" data-cat="gk"><span class="emoji">🇮🇳</span><b id="gkTitle">General Awareness</b><span id="gkSub">Static GK practice</span></button>
-        <button class="category" data-cat="reasoning"><span class="emoji">🧩</span><b id="reasonTitle">Quick Reasoning</b><span id="reasonSub">Logic warm-up</span></button>
-      </div>
-      <div class="card"><h3 id="dailyTitle">🎯 Your 5-minute goal</h3><p id="dailyText">Take one short quiz every day. Check the explanations and improve your score little by little.</p><button class="primary" id="dailyBtn">Start mixed quiz →</button></div>
-      <div class="card"><h3 id="noteTitle">📌 Demo version</h3><p id="noteText">This starter app contains sample questions to test the flow. Verify every question and add more original questions before publishing.</p></div>
-    </section>
-    <section id="quiz" class="hidden">
-      <div class="section-head"><h2 id="quizTitle">Practice quiz</h2><button id="exitBtn" class="secondary">Exit</button></div>
-      <div class="card">
-        <div class="question-meta"><span id="qCount">Question 1 of 5</span><span id="qCat">Banking</span></div>
-        <div class="progress"><div id="progressBar"></div></div>
-        <div id="questionText" class="question"></div>
-        <div id="options"></div>
-        <div id="explanation" class="explain hidden"></div>
-        <button id="nextBtn" class="primary" disabled>Check answer</button>
-      </div>
-    </section>
-    <section id="result" class="hidden">
-      <div class="card" style="text-align:center;padding:25px 18px">
-        <div style="font-size:44px">🎉</div><h2 id="resultTitle">Quiz completed!</h2><div id="scoreText" class="result-score">0/5</div><p id="resultMessage">Keep practising every day.</p>
-        <button id="retryBtn" class="primary">Try another quiz</button><button id="homeBtn" class="secondary" style="width:100%;margin-top:10px">Back to home</button>
-      </div>
-    </section>
-  </main>
-  <div class="footer">ExamSprint • Learn daily, grow steadily</div>
-</div>
-<script>
-const questions = {
- banking:[
-  {q:"Which institution is India's central bank?",opts:["State Bank of India","Reserve Bank of India","NABARD","SEBI"],a:1,e:"The Reserve Bank of India (RBI) is India's central bank."},
-  {q:"What does ATM commonly stand for?",opts:["Any Time Money","Automated Teller Machine","Automatic Transfer Method","Account Teller Mode"],a:1,e:"ATM stands for Automated Teller Machine."},
-  {q:"Which regulator oversees India's securities market?",opts:["SEBI","IRDAI","RBI only","PFRDA"],a:0,e:"SEBI regulates India's securities market."},
-  {q:"What is a savings account mainly designed for?",opts:["Daily saving and transactions","Only taking loans","Buying shares automatically","Paying income tax only"],a:0,e:"Savings accounts help people keep money safely while earning applicable interest."},
-  {q:"UPI is primarily used for what?",opts:["Instant digital payments","Printing currency","Issuing passports","Measuring inflation"],a:0,e:"UPI enables instant bank-to-bank digital payments."}
- ],
- lic:[
-  {q:"What is the main purpose of life insurance?",opts:["To guarantee investment profit","Financial protection against the insured person's death","To avoid every tax","To provide free banking"],a:1,e:"Life insurance provides financial protection to beneficiaries under policy terms."},
-  {q:"Which regulator oversees insurance in India?",opts:["SEBI","IRDAI","RBI","NTA"],a:1,e:"IRDAI regulates and develops India's insurance sector."},
-  {q:"What is a premium in insurance?",opts:["The amount paid for insurance cover","A bank branch","A type of ATM","The policyholder's age only"],a:0,e:"A premium is the amount paid to keep an insurance policy active."},
-  {q:"Who is a nominee in an insurance policy?",opts:["The insurer's auditor","A person named to receive benefits as applicable","The policy's salesperson only","The bank manager"],a:1,e:"A nominee is named to receive policy proceeds, subject to applicable law and policy terms."},
-  {q:"What does a policy term mean?",opts:["The period the policy runs","The agent's salary","The claim form number","The premium receipt colour"],a:0,e:"The policy term is the duration for which the policy is in force."}
- ],
- gk:[
-  {q:"What is the capital of Rajasthan?",opts:["Jaipur","Jodhpur","Udaipur","Kota"],a:0,e:"Jaipur is the capital of Rajasthan."},
-  {q:"Which is the largest planet in our Solar System?",opts:["Earth","Mars","Jupiter","Venus"],a:2,e:"Jupiter is the largest planet in our Solar System."},
-  {q:"How many houses are there in India's Parliament?",opts:["One","Two","Three","Four"],a:1,e:"India's Parliament consists of the President and two Houses: Lok Sabha and Rajya Sabha."},
-  {q:"Which gas do plants absorb mainly for photosynthesis?",opts:["Oxygen","Carbon dioxide","Nitrogen","Hydrogen"],a:1,e:"Plants use carbon dioxide, water and light in photosynthesis."},
-  {q:"The Constitution of India came into effect on:",opts:["15 August 1947","26 January 1950","2 October 1949","26 November 1952"],a:1,e:"The Constitution came into effect on 26 January 1950."}
- ],
- reasoning:[
-  {q:"Find the next number: 2, 4, 6, 8, __",opts:["9","10","12","14"],a:1,e:"The sequence increases by 2 each time."},
-  {q:"If all roses are flowers, which statement must be true?",opts:["All flowers are roses","All roses are flowers","No roses are flowers","All flowers are red"],a:1,e:"This directly follows from the given statement."},
-  {q:"Choose the odd one out.",opts:["Apple","Mango","Carrot","Banana"],a:2,e:"Carrot is generally treated as a vegetable; the others are fruits."},
-  {q:"If today is Monday, what day will it be after 3 days?",opts:["Tuesday","Wednesday","Thursday","Friday"],a:2,e:"Tuesday (1), Wednesday (2), Thursday (3)."},
-  {q:"Complete the pattern: A, C, E, G, __",opts:["H","I","J","K"],a:1,e:"The sequence skips one letter each time: A, C, E, G, I."}
- ]
-};
-const labels={banking:"Banking Basics",lic:"LIC & Insurance",gk:"General Awareness",reasoning:"Quick Reasoning"};
-let current=[], index=0, selected=null, correct=0, category="banking", hindi=false;
-const $=id=>document.getElementById(id);
-function stats(){const s=JSON.parse(localStorage.getItem("examSprintStats")||'{"correct":0,"tests":0,"streak":0,"last":""}');$("totalScore").textContent=s.correct;$("testsDone").textContent=s.tests;$("streak").textContent=s.streak+" 🔥";}
-function saveResult(){let s=JSON.parse(localStorage.getItem("examSprintStats")||'{"correct":0,"tests":0,"streak":0,"last":""}');s.correct+=correct;s.tests++;const today=new Date().toDateString();if(s.last!==today){const y=new Date(Date.now()-86400000).toDateString();s.streak=s.last===y?s.streak+1:1;s.last=today;}localStorage.setItem("examSprintStats",JSON.stringify(s));stats();}
-function startQuiz(cat){category=cat;current=cat==="mixed"?Object.keys(questions).flatMap(k=>questions[k].map(q=>({...q,cat:k}))).sort(()=>Math.random()-.5).slice(0,5):[...questions[cat]].sort(()=>Math.random()-.5);index=0;correct=0;selected=null;$("home").classList.add("hidden");$("result").classList.add("hidden");$("quiz").classList.remove("hidden");$("quizTitle").textContent=cat==="mixed"?"Mixed practice":labels[cat];renderQ();}
-function renderQ(){const q=current[index];selected=null;$("qCount").textContent=`Question ${index+1} of ${current.length}`;$("qCat").textContent=labels[q.cat||category];$("progressBar").style.width=`${index/current.length*100}%`;$("questionText").textContent=q.q;$("options").innerHTML="";$("explanation").classList.add("hidden");q.opts.forEach((o,i)=>{const b=document.createElement("button");b.className="option";b.textContent=String.fromCharCode(65+i)+". "+o;b.onclick=()=>{if(selected!==null)return;selected=i;document.querySelectorAll(".option")[i].classList.add("selected");$("nextBtn").disabled=false;$("nextBtn").textContent="Check answer";};$("options").appendChild(b)});$("nextBtn").disabled=true;$("nextBtn").textContent="Check answer";$("nextBtn").onclick=checkAnswer;}
-function checkAnswer(){const q=current[index];if(selected===null)return;if($("nextBtn").dataset.checked!=="yes"){const opts=[...document.querySelectorAll(".option")];opts[q.a].classList.add("correct");if(selected!==q.a)opts[selected].classList.add("wrong");else correct++;$("explanation").textContent=q.e;$("explanation").classList.remove("hidden");$("nextBtn").dataset.checked="yes";$("nextBtn").textContent=index===current.length-1?"See result":"Next question";return;}delete $("nextBtn").dataset.checked;index++;if(index<current.length)renderQ();else showResult();}
-function showResult(){$("quiz").classList.add("hidden");$("result").classList.remove("hidden");$("progressBar").style.width="100%";saveResult();$("scoreText").textContent=`${correct}/${current.length}`;$("resultMessage").textContent=correct===current.length?"Perfect score! Great work.":"Keep practising. Read each explanation and try again."; }
-function home(){$("quiz").classList.add("hidden");$("result").classList.add("hidden");$("home").classList.remove("hidden");stats();}
-document.querySelectorAll(".category").forEach(b=>b.addEventListener("click",()=>startQuiz(b.dataset.cat)));
-$("dailyBtn").onclick=()=>startQuiz("mixed");$("exitBtn").onclick=home;$("homeBtn").onclick=home;$("retryBtn").onclick=()=>startQuiz(category);
-$("langBtn").onclick=()=>{hindi=!hindi;$("langBtn").textContent=hindi?"English":"हिन्दी";$("heroTitle").textContent=hindi?"Roz thoda padho. Exam mein aage badho.":"Study a little every day. Move ahead in your exam."; $("heroSub").textContent=hindi?"बैंकिंग • LIC • सामान्य जागरूकता":"Banking • LIC • General Awareness";$("chooseTitle").textContent=hindi?"अपनी प्रैक्टिस चुनें":"Choose your practice";$("dailyLabel").textContent=hindi?"रोज़ अभ्यास":"Daily practice";$("bankTitle").textContent=hindi?"बैंकिंग बेसिक्स":"Banking Basics";$("bankSub").textContent=hindi?"RBI, बैंक और वित्त":"RBI, banks & finance";$("licTitle").textContent=hindi?"LIC और बीमा":"LIC & Insurance";$("licSub").textContent=hindi?"बीमा की मूल बातें":"Insurance fundamentals";$("gkTitle").textContent=hindi?"सामान्य ज्ञान":"General Awareness";$("gkSub").textContent=hindi?"स्टैटिक GK अभ्यास":"Static GK practice";$("reasonTitle").textContent=hindi?"रीज़निंग":"Quick Reasoning";$("reasonSub").textContent=hindi?"तर्क क्षमता अभ्यास":"Logic warm-up";$("dailyTitle").textContent=hindi?"🎯 आपका 5 मिनट का लक्ष्य":"🎯 Your 5-minute goal";$("dailyText").textContent=hindi?"हर दिन एक छोटा क्विज़ करें। जवाबों की व्याख्या पढ़ें और धीरे-धीरे अपना स्कोर बढ़ाएं।":"Take one short quiz every day. Check the explanations and improve your score little by little.";};
-stats();
-if("serviceWorker" in navigator && location.protocol.startsWith("http")) navigator.serviceWorker.register("./sw.js").catch(()=>{});
-</script>
-</body>
-</html>
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#132b55"><link rel="manifest" href="manifest.json"><title>ExamSprint | Banking Exam Practice</title><style>
+:root{--navy:#132b55;--blue:#275dad;--bg:#f4f7fb;--ink:#172033;--muted:#667085;--line:#e5eaf2}*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif}button,input,select{font:inherit}header{background:linear-gradient(135deg,#132b55,#275dad);color:white;padding:22px 16px 24px;border-radius:0 0 23px 23px}.brand{font-size:22px;font-weight:850}.tag{font-size:10px;border:1px solid #ffffff55;border-radius:99px;padding:6px;float:right}h1{font-size:25px;line-height:1.2;margin:24px 0 8px}header p{font-size:13px;line-height:1.5;color:#e3ebff;margin:0}main{max-width:760px;margin:auto;padding:15px 13px 40px}.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}.stat,.panel{background:white;border:1px solid var(--line);border-radius:14px;padding:13px}.stat strong{display:block;color:var(--navy);font-size:18px}.stat span{font-size:11px;color:var(--muted)}.st{display:flex;justify-content:space-between;align-items:end;margin:21px 2px 10px}.st h2{font-size:17px;margin:0}.st small{font-size:11px;color:var(--muted)}.search{display:flex;gap:8px;margin-bottom:9px}.search input,.search select{min-width:0;width:100%;border:1px solid #d9e1ee;border-radius:10px;padding:11px;background:white}.tabs{display:flex;gap:7px;overflow:auto;margin:5px 0 10px}.tab{white-space:nowrap;border:1px solid #d8e0ed;background:white;border-radius:99px;padding:8px 12px;font-size:12px}.tab.active{background:var(--navy);color:white}.list{display:grid;gap:9px}.exam{display:flex;align-items:center;gap:11px;background:white;border:1px solid var(--line);border-radius:13px;padding:12px;text-align:left;width:100%;color:inherit}.em{width:42px;height:42px;flex-shrink:0;border-radius:12px;background:#eaf0ff;color:var(--navy);display:grid;place-items:center;font-weight:850;font-size:11px}.copy{flex:1;min-width:0}.copy b{display:block;font-size:13px}.copy small{display:block;font-size:11px;color:var(--muted);line-height:1.4;margin-top:4px}.label{display:inline-block;background:#f0f4fa;border-radius:5px;padding:3px 6px;font-size:10px;margin-top:5px;color:#475467}.arrow{font-size:22px;color:#8793a7}.subjects{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}.subject{background:white;border:1px solid var(--line);border-radius:12px;padding:12px;text-align:left;color:inherit}.subject b{font-size:12px;display:block}.subject small{font-size:10px;color:var(--muted);display:block;margin-top:5px}.notice{margin-top:14px;padding:12px;border-radius:12px;background:#fff8e8;border:1px solid #f4e2b3;font-size:11px;line-height:1.5;color:#765319}.bottom{text-align:center;padding:13px;font-size:11px;color:var(--muted);border-top:1px solid var(--line);background:white}.back{border:0;background:#eaf0ff;color:var(--navy);padding:9px 12px;border-radius:9px;font-weight:bold;margin-bottom:12px}.qoption{display:block;width:100%;text-align:left;background:white;border:1px solid var(--line);border-radius:10px;padding:11px;margin:8px 0}.qoption.selected{border-color:var(--blue);background:#edf4ff}.result{display:none;background:#eef8f1;border:1px solid #ccebd6;border-radius:10px;padding:12px;font-size:13px;margin-top:10px}.primary{border:0;border-radius:10px;background:var(--navy);color:white;padding:11px 14px;font-weight:700}.muted{font-size:12px;color:var(--muted)}@media(min-width:560px){.list{grid-template-columns:1fr 1fr}}
+</style></head><body><header><div class="brand">⚡ ExamSprint <span class="tag">BANKING • FINANCE</span></div><h1>Prepare smarter for your exam.</h1><p>Explore major Indian banking and finance recruitment exams, then practise topic-wise questions with answers and explanations.</p></header><main><section id="home"><div class="stats"><div class="stat"><strong id="ec">—</strong><span>Exam entries</span></div><div class="stat"><strong id="qc">—</strong><span>Practice questions</span></div><div class="stat"><strong id="score">0</strong><span>Answered on device</span></div></div><div class="st"><h2>Find your exam</h2><small>Tap for details</small></div><div class="search"><input id="search" placeholder="Search SBI PO, RBI, LIC…" aria-label="Search exams"><select id="org"><option value="all">All organisations</option><option>IBPS</option><option>SBI</option><option>RBI</option><option>NABARD</option><option>Other regulators</option><option>Public sector banks</option><option>Insurance & finance</option><option>Professional exams</option></select></div><div class="tabs" id="tabs"><button class="tab active" data-t="all">All</button><button class="tab" data-t="Banking">Banking</button><button class="tab" data-t="Regulator">Regulators</button><button class="tab" data-t="Insurance">Insurance</button><button class="tab" data-t="Specialist">Specialist</button></div><div id="exams" class="list"></div><div id="empty" class="muted" style="display:none;text-align:center;padding:18px">No results. Try another search.</div><div class="st"><h2>Practice by subject</h2><small>Question bank</small></div><div id="topics" class="subjects"></div><div class="notice"><b>Exam notice:</b> Recruitment names, eligibility, dates and patterns can change. Use the official notification linked on each exam page for current details. Current question bank is original practice material and is not an official previous-year paper.</div></section><section id="detail" style="display:none"><button class="back" onclick="goHome()">← Back</button><div class="panel"><span class="label" id="dtag"></span><h2 id="dtitle"></h2><p id="ddesc"></p><div id="detailContent"></div><p id="official"></p></div></section></main><div class="bottom">ExamSprint • Mobile-first practice</div><script>
+const exams=[
+["IBPS PO / Management Trainee","IBPS","Banking","PO","Officer recruitment for participating public sector banks.","https://www.ibps.in/"],
+["IBPS Customer Service Associate (CSA) / Clerk","IBPS","Banking","CSA","Clerical/customer service recruitment; check the current notification.","https://www.ibps.in/"],
+["IBPS Specialist Officer (SO)","IBPS","Specialist","SO","IT, Agriculture, Law, HR, Marketing, Rajbhasha and other notified streams.","https://www.ibps.in/"],
+["IBPS RRB Office Assistant","IBPS","Banking","RRB","Regional Rural Bank office assistant, commonly called RRB Clerk.","https://www.ibps.in/"],
+["IBPS RRB Officer Scale I","IBPS","Banking","S-I","Regional Rural Bank Assistant Manager recruitment.","https://www.ibps.in/"],
+["IBPS RRB Officer Scale II","IBPS","Specialist","S-II","Regional Rural Bank Manager and specialist streams as notified.","https://www.ibps.in/"],
+["IBPS RRB Officer Scale III","IBPS","Specialist","S-III","Regional Rural Bank Senior Manager recruitment; experience conditions apply.","https://www.ibps.in/"],
+["SBI Probationary Officer (PO)","SBI","Banking","SBI","State Bank of India officer recruitment.","https://sbi.bank.in/web/careers/current-openings"],
+["SBI Junior Associate (Clerk)","SBI","Banking","JA","SBI customer support and sales recruitment.","https://sbi.bank.in/web/careers/current-openings"],
+["SBI Specialist Cadre Officer (SO)","SBI","Specialist","SO","IT, law, risk and other specialist roles when advertised.","https://sbi.bank.in/web/careers/current-openings"],
+["SBI Circle Based Officer (CBO)","SBI","Banking","CBO","Circle-based officer recruitment; check experience conditions.","https://sbi.bank.in/web/careers/current-openings"],
+["SBI Apprentice","SBI","Banking","APP","Apprenticeship engagement when notified; not a permanent officer post.","https://sbi.bank.in/web/careers/current-openings"],
+["RBI Grade B — General","RBI","Regulator","RBI","Reserve Bank officer recruitment; follow the current notification.","https://opportunities.rbi.org.in/"],
+["RBI Grade B — DEPR","RBI","Specialist","DEPR","Economics and policy research specialist stream when notified.","https://opportunities.rbi.org.in/"],
+["RBI Grade B — DSIM","RBI","Specialist","DSIM","Statistics and information management stream when notified.","https://opportunities.rbi.org.in/"],
+["RBI Assistant","RBI","Banking","RA","Assistant-level RBI recruitment when announced.","https://opportunities.rbi.org.in/"],
+["RBI Office Attendant","RBI","Banking","OA","Office attendant recruitment when notified.","https://opportunities.rbi.org.in/"],
+["NABARD Grade A","NABARD","Regulator","NAB","Assistant Manager across notified streams.","https://www.nabard.org/"],
+["NABARD Grade B","NABARD","Regulator","N-B","Manager-level recruitment when announced.","https://www.nabard.org/"],
+["NABARD Development Assistant","NABARD","Banking","NDA","Development Assistant and Hindi stream when notified.","https://www.nabard.org/"],
+["SIDBI Grade A / Grade B","Other regulators","Regulator","SIDBI","Small Industries Development Bank officer recruitment.","https://www.sidbi.in/"],
+["SEBI Grade A","Other regulators","Regulator","SEBI","General, Legal, IT, Research and other notified streams.","https://www.sebi.gov.in/"],
+["National Housing Bank (NHB)","Other regulators","Regulator","NHB","Assistant Manager and other officer posts when announced.","https://www.nhb.org.in/"],
+["EXIM Bank","Other regulators","Specialist","EXIM","Management Trainee, officer and specialist recruitment.","https://www.eximbankindia.in/"],
+["NaBFID","Other regulators","Specialist","NBF","Officer and specialist recruitment when notified.","https://nabfid.org/"],
+["IRDAI Assistant Manager","Other regulators","Regulator","IRDAI","Insurance regulator officer recruitment when announced.","https://irdai.gov.in/"],
+["PFRDA Grade A","Other regulators","Regulator","PFRDA","Pension regulator officer recruitment when announced.","https://www.pfrda.org.in/"],
+["IFSCA Assistant Manager","Other regulators","Regulator","IFSCA","International financial services regulator recruitment.","https://ifsca.gov.in/"],
+["Bank of Baroda direct recruitment","Public sector banks","Banking","BOB","LBO, SO, manager, apprentice and other roles when advertised.","https://www.bankofbaroda.in/career"],
+["Punjab National Bank direct recruitment","Public sector banks","Banking","PNB","Specialist and other direct recruitment vacancies.","https://www.pnbindia.in/Recruitments.aspx"],
+["Canara Bank direct recruitment","Public sector banks","Banking","CAN","Specialist, apprentice and other vacancies when announced.","https://canarabank.com/"],
+["Union Bank of India direct recruitment","Public sector banks","Banking","UBI","LBO, specialist and other advertised roles.","https://www.unionbankofindia.co.in/"],
+["Bank of India direct recruitment","Public sector banks","Banking","BOI","Officer and specialist vacancies as notified.","https://bankofindia.co.in/career"],
+["Indian Bank direct recruitment","Public sector banks","Banking","IB","Specialist and other direct recruitment vacancies.","https://indianbank.in/career/"],
+["Central Bank of India direct recruitment","Public sector banks","Banking","CBI","Specialist, apprentice and other advertised vacancies.","https://centralbankofindia.co.in/en/recruitments"],
+["Indian Overseas Bank direct recruitment","Public sector banks","Banking","IOB","Specialist and other roles when advertised.","https://www.iob.in/Careers"],
+["UCO Bank direct recruitment","Public sector banks","Banking","UCO","Officer, specialist and apprentice roles as notified.","https://ucobank.com/career"],
+["Bank of Maharashtra direct recruitment","Public sector banks","Banking","BOM","Officer, specialist and other advertised roles.","https://bankofmaharashtra.in/careers"],
+["Punjab & Sind Bank direct recruitment","Public sector banks","Banking","PSB","Specialist and other vacancies as notified.","https://punjabandsind.bank.in/"],
+["LIC AAO","Insurance & finance","Insurance","AAO","Life Insurance Corporation Assistant Administrative Officer.","https://licindia.in/"],
+["LIC ADO","Insurance & finance","Insurance","ADO","LIC Apprentice Development Officer when notified.","https://licindia.in/"],
+["LIC Assistant (if notified)","Insurance & finance","Insurance","LIC","Include when LIC announces this recruitment.","https://licindia.in/"],
+["LIC Housing Finance (HFL)","Insurance & finance","Insurance","HFL","Assistant, Assistant Manager and other roles when announced.","https://www.lichousing.com/careers"],
+["NIACL AO / Assistant","Insurance & finance","Insurance","NIACL","New India Assurance officer or assistant recruitment.","https://newindia.co.in/"],
+["UIIC AO / Assistant","Insurance & finance","Insurance","UIIC","United India Insurance officer or assistant recruitment.","https://uiic.co.in/"],
+["OICL AO / Assistant","Insurance & finance","Insurance","OICL","Oriental Insurance officer or assistant recruitment.","https://orientalinsurance.org.in/"],
+["GIC Re Assistant Manager","Insurance & finance","Insurance","GIC","General Insurance Corporation officer recruitment.","https://www.gicre.in/"],
+["ECGC PO","Insurance & finance","Insurance","ECGC","Export Credit Guarantee Corporation Probationary Officer.","https://www.ecgc.in/"],
+["IIBF JAIIB","Professional exams","Specialist","JAIIB","Professional banking qualification for eligible banking professionals; not entry-level recruitment.","https://www.iibf.org.in/"],
+["IIBF CAIIB","Professional exams","Specialist","CAIIB","Advanced professional banking qualification; not entry-level recruitment.","https://www.iibf.org.in/"]
+];
+const topicNames=["Quantitative Aptitude","Reasoning Ability","English Language","Banking & Financial Awareness","Computer Aptitude","General Awareness","Professional Subjects"];
+let bank=[];let selected=null;let current=0;let session=[];let score=0;
+const esc=s=>String(s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+async function loadBank(){let r=await fetch("./questions.json");bank=(await r.json()).questions;document.getElementById("qc").textContent=bank.length;document.getElementById("ec").textContent=exams.length;document.getElementById("score").textContent=localStorage.getItem("examsprint_answered")||0;renderTopics();renderExams()}
+function renderTopics(){document.getElementById("topics").innerHTML=topicNames.map(t=>`<button class="subject" onclick="startTopic(${JSON.stringify(t)})"><b>${esc(t)}</b><small>${bank.filter(q=>q.topic===t).length} questions · Practice now</small></button>`).join("")}
+let filter="all";
+function renderExams(){let s=document.getElementById("search").value.toLowerCase(),o=document.getElementById("org").value;let a=exams.filter(e=>(!s||e.join(" ").toLowerCase().includes(s))&&(o==="all"||e[1]===o)&&(filter==="all"||e[2]===filter));document.getElementById("exams").innerHTML=a.map(e=>`<button class="exam" onclick="openExam(${JSON.stringify(e[0])})"><span class="em">${esc(e[3])}</span><span class="copy"><b>${esc(e[0])}</b><small>${esc(e[1])} • ${esc(e[4])}</small><span class="label">${esc(e[2])}</span></span><span class="arrow">›</span></button>`).join("");document.getElementById("empty").style.display=a.length?"none":"block"}
+function showDetail(tag,title,desc,content,link=""){document.getElementById("home").style.display="none";document.getElementById("detail").style.display="block";document.getElementById("dtag").textContent=tag;document.getElementById("dtitle").textContent=title;document.getElementById("ddesc").textContent=desc;document.getElementById("detailContent").innerHTML=content;document.getElementById("official").innerHTML=link;window.scrollTo(0,0)}
+function openExam(name){let e=exams.find(x=>x[0]===name);if(!e)return;let buttons=topicNames.map(t=>`<button class="subject" onclick="startTopic(${JSON.stringify(t)})"><b>${esc(t)}</b><small>${bank.filter(q=>q.topic===t).length} questions</small></button>`).join("");showDetail(e[1]+" • "+e[2],e[0],e[4],`<div class="subjects">${buttons}</div>`,`<a target="_blank" rel="noopener" href="${e[5]}">Open official recruitment website ↗</a>`)}
+function startTopic(topic){session=bank.map((q,i)=>({...q,idx:i})).filter(q=>q.topic===topic);current=0;score=0;if(!session.length){showDetail("QUESTION BANK",topic,"Questions are being added for this subject.",'<p class="muted">Please choose another subject.</p>');return}showQuestion()}
+function showQuestion(){let q=session[current];selected=null;let options=q.options.map((o,i)=>`<button class="qoption" onclick="choose(${i},this)">${"ABCD"[i]}. ${esc(o)}</button>`).join("");showDetail(q.topic.toUpperCase()+" • "+q.difficulty,`${current+1} / ${session.length}`,q.question,`<div id="qopts">${options}</div><div class="result" id="result"></div><button class="primary" id="check" onclick="checkAnswer()" disabled>Check answer</button> <button class="primary" id="next" onclick="nextQuestion()" style="display:none">Next question →</button><p class="muted">Choose one answer. Explanations appear after checking.</p>`)}
+function choose(i,el){selected=i;document.querySelectorAll(".qoption").forEach(x=>x.classList.remove("selected"));el.classList.add("selected");document.getElementById("check").disabled=false}
+function checkAnswer(){if(selected===null)return;let q=session[current],r=document.getElementById("result");let correct=selected===q.answer;if(correct)score++;document.querySelectorAll(".qoption").forEach((b,i)=>{b.disabled=true;if(i===q.answer)b.style.borderColor="#18794e"});r.style.display="block";r.innerHTML=(correct?"✅ Correct!":"❌ Correct answer: "+ "ABCD"[q.answer]+". "+esc(q.options[q.answer]))+"<br><b>Explanation:</b> "+esc(q.explanation);document.getElementById("check").style.display="none";document.getElementById("next").style.display="inline-block";try{localStorage.setItem("examsprint_answered",+(localStorage.getItem("examsprint_answered")||0)+1)}catch(e){}}
+function nextQuestion(){if(current+1<session.length){current++;showQuestion()}else{showDetail("PRACTICE COMPLETE","Session finished",`You answered ${session.length} questions and got ${score} correct.`, `<p><b>Score: ${score}/${session.length}</b></p><button class="primary" onclick="startTopic(${JSON.stringify(session[0].topic)})">Practise this subject again</button><button class="primary" onclick="goHome()">Choose another subject</button>`)}}
+function goHome(){document.getElementById("detail").style.display="none";document.getElementById("home").style.display="block";document.getElementById("score").textContent=localStorage.getItem("examsprint_answered")||0;window.scrollTo(0,0)}
+document.getElementById("search").addEventListener("input",renderExams);document.getElementById("org").addEventListener("change",renderExams);document.querySelectorAll(".tab").forEach(b=>b.addEventListener("click",()=>{document.querySelectorAll(".tab").forEach(x=>x.classList.remove("active"));b.classList.add("active");filter=b.dataset.t;renderExams()}));loadBank().catch(e=>{document.getElementById("qc").textContent="Error";document.getElementById("topics").innerHTML="Question bank could not load. Make sure questions.json is in the repository root."});
+</script></body></html>
